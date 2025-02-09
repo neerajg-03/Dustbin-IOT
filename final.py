@@ -13,17 +13,22 @@ import googlemaps
 
 # Twilio API Credentials
 
-client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
-# Google Maps API Key
-GMAPS_API_KEY = "AIzaSyB1jm6Nl44nMnIZqX9qzx0up_lUro5QyfA"
-gmaps = googlemaps.Client(key=GMAPS_API_KEY)
+# Google Maps API K
+
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 GMAPS_API_KEY = os.getenv("GMAPS_API_KEY")
-
+gmaps = googlemaps.Client(key=GMAPS_API_KEY)
+# Initialize Twilio client
+from twilio.rest import Client
+client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 # Load UI assets
 logo = Image.open("dustbin_logo.jpg")
