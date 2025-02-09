@@ -8,3 +8,4 @@ Pillow  # For Image (PIL)
 fpdf
 twilio
 googlemaps
+python-dotenv
