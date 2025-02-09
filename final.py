@@ -17,7 +17,8 @@ client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 # Google Maps API Key
 GMAPS_API_KEY = "AIzaSyB1jm6Nl44nMnIZqX9qzx0up_lUro5QyfA"
-gmaps = googlemaps.Client(key=GMAPS_API_KEY)import os
+gmaps = googlemaps.Client(key=GMAPS_API_KEY)
+import os
 
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
