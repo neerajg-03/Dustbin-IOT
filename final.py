@@ -256,6 +256,51 @@ if user_role == "Admin":
         task_message = f"Bin {selected_worker} has been assigned to you. Please collect the waste promptly."
         send_update_message(worker_phone, task_message)
         st.sidebar.success(f"Bin {selected_worker} assigned to Worker {selected_worker_id} with real-time update!")
+def generate_monthly_waste_data():
+    dates = pd.date_range(start="2024-01-01", periods=30, freq='D')
+    data = []
+    for bin_id in range(1, 11):
+        for date in dates:
+            waste_amount = random.uniform(20, 100)  # kg per day
+            carbon_footprint = waste_amount * 2.52 / 1000  # kg CO2 per kg waste
+            data.append({
+                "Bin ID": f"Bin-{bin_id}",
+                "Date": date,
+                "Waste (kg)": waste_amount,
+                "Carbon Footprint (kg CO2)": carbon_footprint
+            })
+    return pd.DataFrame(data)
+
+# Fetch Data
+monthly_waste_data = generate_monthly_waste_data()
+
+# Display Data
+st.subheader("📊 Monthly Waste Analysis")
+st.dataframe(monthly_waste_data)
+
+# Waste Trends Per Bin
+fig = px.line(monthly_waste_data, x="Date", y="Waste (kg)", color="Bin ID",
+              title="Waste Generation Trends per Dustbin")
+st.plotly_chart(fig)
+
+# Carbon Footprint Analysis
+carbon_footprint_summary = monthly_waste_data.groupby("Date")["Carbon Footprint (kg CO2)"].sum().reset_index()
+fig_carbon = px.line(carbon_footprint_summary, x="Date", y="Carbon Footprint (kg CO2)",
+                      title="Daily Carbon Footprint Trend")
+st.plotly_chart(fig_carbon)
+
+# Summary Statistics
+st.subheader("📌 Key Insights")
+total_waste = monthly_waste_data["Waste (kg)"].sum()
+total_carbon = monthly_waste_data["Carbon Footprint (kg CO2)"].sum()
+max_waste_day = monthly_waste_data.groupby("Date")["Waste (kg)"].sum().idxmax()
+
+st.write(f"- **Total Waste Generated in a Month:** {total_waste:.2f} kg")
+st.write(f"- **Total Carbon Footprint for the Month:** {total_carbon:.2f} kg CO2")
+st.write(f"- **Day with Highest Waste Generation:** {max_waste_day.date()}")
+
+st.success("✅ Analytics Report Generated Successfully!")
+
 
 st.success("✅ Dashboard Updated Successfully!")
 
