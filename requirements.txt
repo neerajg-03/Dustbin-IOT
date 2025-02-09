@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+folium
+streamlit-folium
+plotly
+Pillow  # For Image (PIL)
+fpdf
+twilio
+googlemaps
