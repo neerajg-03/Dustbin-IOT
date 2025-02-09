@@ -1,0 +1,2 @@
+echo "config.py" >> .gitignore
+echo ".env" >> .gitignore
